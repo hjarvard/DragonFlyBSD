@@ -38,6 +38,7 @@
 static int
 dmabuf_stat(struct file *fp, struct stat *sb, struct ucred *cred)
 {
+STUB();
 	struct dma_buf *dmabuf = fp->f_data;
 
 	memset(sb, 0, sizeof(*sb));
@@ -66,6 +67,7 @@ struct fileops dmabuf_fileops = {
 struct dma_buf *
 dma_buf_export(const struct dma_buf_export_info *exp_info)
 {
+STUB();
 	struct dma_buf *dmabuf;
 	struct file *fp;
 
@@ -88,6 +90,7 @@ dma_buf_export(const struct dma_buf_export_info *exp_info)
 int
 dma_buf_fd(struct dma_buf *dmabuf, int flags)
 {
+STUB();
 	int fd, error;
 
 	if (dmabuf == NULL)
@@ -117,6 +120,7 @@ dma_buf_fd(struct dma_buf *dmabuf, int flags)
 struct dma_buf *
 dma_buf_get(int fd)
 {
+STUB();
 	struct file *fp;
 	struct dma_buf *dmabuf;
 
@@ -139,6 +143,7 @@ struct sg_table *
 dma_buf_map_attachment(struct dma_buf_attachment *attach,
 				enum dma_data_direction direction)
 {
+STUB();
 	struct sg_table *sg_table;
 
 	if (attach == NULL)
@@ -158,5 +163,6 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *attach,
 				struct sg_table *sg_table,
 				enum dma_data_direction direction)
 {
+STUB();
 }
 

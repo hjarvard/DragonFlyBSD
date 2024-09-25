@@ -56,7 +56,7 @@ struct dma_buf_ops {
 	void (*vunmap)(struct dma_buf *, void *vaddr);
 	int (*begin_cpu_access)(struct dma_buf *, enum dma_data_direction);
 	int (*end_cpu_access)(struct dma_buf *, enum dma_data_direction);
-	int (*attach)(struct dma_buf *, struct device *, struct dma_buf_attachment *);
+	int (*attach)(struct dma_buf *, struct dma_buf_attachment *);
 	void (*detach)(struct dma_buf *, struct dma_buf_attachment *);
 };
 

@@ -28,23 +28,34 @@
 #define _LINUX_IRQFLAGS_H_
 
 #include <linux/typecheck.h>
+#include <sys/thread2.h>
 
 static inline void
 local_irq_disable(void)
 {
-	__asm __volatile("cli": : :"memory");
+	crit_enter();
 }
 
 static inline void
 local_irq_enable(void)
 {
-	__asm __volatile("sti": : :"memory");
+	crit_exit();
 }
 
 static inline bool
 irqs_disabled(void)
 {
-	return !(read_rflags() & 0x200UL);
+	/* dillon: I don't like disabling interrupts.
+	 * The reason we avoid actually hard-disabling interrupts is
+	 * because if something goes wrong we have almost no chance of
+	 * getting a crash dump or for the system to be able to operate while
+	 * drm is stuck / blocked on something.
+	 * XXX: better to use crit_enter/crit_exit
+	 */
+	/* real implementation causes GEM_BUG_ON panic in the i915 driver
+	 * when handling e.g. page flip ioctl
+	 */
+	return (1);
 }
 
 #define local_irq_save(flags)	\
@@ -57,6 +68,7 @@ static inline void
 local_irq_restore(unsigned long flags)
 {
 	write_rflags(flags);
+	local_irq_enable();
 }
 
 #endif	/* _LINUX_IRQFLAGS_H_ */
